@@ -30,32 +30,38 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")
+        self.rooms.append(soufrière)
+        chutes = Room("Les Chutes du Carbet", "près de grandes cascades au cœur de la jungle.")
+        self.rooms.append(chutes)
+        parc = Room("Le parc des roches gravées", "site avec des roches gravées amérindiennes remplies d'énigmes.")
+        self.rooms.append(parc)
+        malendure = Room("La plage de malendure", "dans une zone côtière avec fond marin protégé et pleine de surprises.")
+        self.rooms.append(malendure)
+        pointe = Room("La Pointe des chatêau", "dans une pointe rocheuse battue par les vagues, avec une grande croix et une vue sur l’océan.")
+        self.rooms.append(pointe)
+        caravelle = Room("Caravelle", "dans une grande plage paradisiaque de carte postale avec cocotiers.")
+        self.rooms.append(caravelle)
+        place = Room("La place de la victoire", "dans une grande place centrale avec des maisons colorées et marchés.")
+        self.rooms.append(place)
+        fort = Room("Le fort Napoléon", "dans une forteresse sombre qui porte les marques du passé.")
+        self.rooms.append(fort)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        soufrière.exits = {"N": None, "E": None, "S": None, "O": None, "U": None, "D": parc}
+        chutes.exits = {"N" : None, "E" : place, "S" : parc, "O" : None, "U": None, "D": malendure}
+        parc.exits = {"N" : chutes, "E" : None, "S" : fort, "O" : None, "U": soufrière, "D": None}
+        malendure.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U": parc, "D": None}
+        pointe.exits = {"N" : None, "E" : None, "S" : None, "O" : caravelle, "U": None, "D": None}
+        caravelle.exits = {"N" : None, "E" : pointe, "S" : None, "O" : place, "U": None, "D": None}
+        place.exits = {"N" : None, "E" : caravelle, "S" : None, "O" : chutes, "U": None, "D": None}
+        fort.exits = {"N" : parc, "E" : None, "S" : None, "O" : None, "U": None, "D": None}
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = place
 
     # Play the game
     def play(self):
