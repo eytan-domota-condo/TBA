@@ -29,3 +29,18 @@ class Room:
     # Return a long description of this room including exits.
     def get_long_description(self):
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+
+    def __init__(self, name: str, description: str):
+        self.name = name
+        self.description = description
+        self.exits = {}
+        self.visited = False
+        self.inventory: dict[str, Item] = {}
+
+    def get_inventory(self) -> str:
+        if not self.inventory:
+            return "Il n'y a rien ici."
+        lines = ["On voit:"]
+        for item in self.inventory.values():
+            lines.append(f"- {item}")
+        return "\n".join(lines)

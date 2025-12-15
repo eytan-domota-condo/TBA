@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -108,3 +109,27 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    def __init__(self):
+        # Création des rooms, items, player, etc.
+        self.room1 = Room("Malendure", "dans une zone côtière avec fond marin protégé et pleine de surprises.")
+        self.room2 = Room("Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")
+        # Exemple d’items dans la map :
+        self.room1.inventory["Buste"] = Item("Buste", "un buste du commandant Cousteau", 2)
+        self.room2.inventory["Epée"] = Item("Epée", "une épée avec une lame forgée à base de roche volcanique", 1)
+
+        self.player = Player(self.room1, max_weight=5)
+
+        self.actions = Actions(self)
+        self.command_processor = CommandProcessor(self.actions)
+
+    def loop(self):
+        while True:
+            line = input("> ")
+            if line.strip() in ("quit", "exit"):
+                break
+            self.command_processor.execute(line)
+
+if __name__ == "__main__":
+    game = Game()
+    game.loop()

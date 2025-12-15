@@ -25,3 +25,20 @@ class Player():
         self.current_room = next_room
         print(self.current_room.get_long_description())
         return True
+
+    def __init__(self, starting_room, max_weight: int | float = 5):
+        self.current_room = starting_room
+        self.history = []
+        self.inventory: dict[str, Item] = {}
+        self.max_weight = max_weight
+
+    def get_inventory_weight(self) -> float:
+        return sum(item.weight for item in self.inventory.values())
+
+    def get_inventory(self) -> str:
+        if not self.inventory:
+            return "Votre inventaire est vide."
+        lines = ["Vous disposez des items suivants :"]
+        for item in self.inventory.values():
+            lines.append(f"- {item}")
+        return "\n".join(lines)

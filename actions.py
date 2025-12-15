@@ -98,3 +98,50 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+
+    def __init__(self, game):
+        self.game = game
+
+    def player(self):
+        return self.game.player
+
+    def current_room(self):
+        return self.player.current_room
+
+        def look(self):
+        print(self.current_room.description)
+        print()
+        print(self.current_room.get_inventory())
+
+    def check(self):
+        print(self.player.get_inventory())
+
+        def take(self, item_name: str):
+        room_items = self.current_room.inventory
+
+        if item_name not in room_items:
+            print(f"L'objet '{item_name}' n'est pas dans la pièce.")
+            return
+
+        item = room_items[item_name]
+
+        current_weight = self.player.get_inventory_weight()
+        if current_weight + item.weight > self.player.max_weight:
+            print("Vous ne pouvez pas porter un poids aussi élevé.")
+            return
+
+        self.player.inventory[item_name] = item
+        del room_items[item_name]
+        print(f"Vous avez pris l'objet '{item_name}'.")
+
+    def drop(self, item_name: str):
+        inv = self.player.inventory
+
+        if item_name not in inv:
+            print(f"L'objet '{item_name}' n'est pas dans l'inventaire.")
+            return
+
+        item = inv[item_name]
+        self.current_room.inventory[item_name] = item
+        del inv[item_name]
+        print(f"Vous avez déposé l'objet '{item_name}'.")

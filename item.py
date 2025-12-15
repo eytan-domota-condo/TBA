@@ -1,3 +1,5 @@
+# Description: Item class
+
 class Item:
     def __init__(self, name: str, description: str, weight: int | float):
         self.name = name

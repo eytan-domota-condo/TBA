@@ -41,5 +41,26 @@ class Command:
         return  self.command_word \
                 + self.help_string
     
+    def __init__(self, actions):
+        self.actions = actions
+
+    def execute(self, line: str):
+        parts = line.strip().split()
+        if not parts:
+            return
+
+        cmd = parts[0]
+        args = parts[1:]
+
+        if cmd == "look":
+            self.actions.look()
+        elif cmd == "check":
+            self.actions.check()
+        elif cmd == "take" and args:
+            self.actions.take(args[0])
+        elif cmd == "drop" and args:
+            self.actions.drop(args[0])
+        else:
+            print("Commande inconnue ou arguments manquants.")
 
 
