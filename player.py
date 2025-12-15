@@ -1,27 +1,39 @@
 # Define the Player class.
 class Player():
 
-    # Define the constructor.
     def __init__(self, name):
         self.name = name
         self.current_room = None
-        # Toutes les directions valides (cardinales + verticales)
         self.valid_directions = ("N", "E", "S", "O", "U", "D")
-        
-    # Define the move method.
-    def move(self, direction):
-        # On sécurise en majuscules
-        direction = direction.upper()
+        # Historique des pièces visitées (pile)
+        self.history = []
 
-        # Get the next room from the exits dictionary of the current room.
+    def move(self, direction):
+        direction = direction.upper()
         next_room = self.current_room.exits.get(direction, None)
 
-        # If the next room is None, print an error message and return False.
         if next_room is None:
             print("\nAucune porte dans cette direction !\n")
             return False
-        
-        # Set the current room to the next room.
+
+        # Empiler la salle actuelle dans l'historique avant de bouger
+        self.history.append(self.current_room)
+
         self.current_room = next_room
         print(self.current_room.get_long_description())
+        # Historique après chaque déplacement
+        print(self.get_history())
         return True
+
+    def get_history(self):
+        """
+        Retourne une chaîne représentant l'historique des pièces visitées.
+        """
+        if len(self.history) == 0:
+            return "\nVous n'avez encore visité aucun autre lieu.\n"
+
+        lines = ["\nVous avez déja visité les pièces suivantes:"]
+        for room in self.history:
+            lines.append("    - " + room.description)
+        return "\n".join(lines) + "\n"
+    
