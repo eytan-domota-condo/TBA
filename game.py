@@ -27,7 +27,8 @@ class Game:
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go
-        
+        back = Command("back", " : retour à la salle précédente", Actions.back,0)
+        self.commands["back"]=back
         # Setup rooms
 
         soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")

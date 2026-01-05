@@ -98,3 +98,20 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+# dans game.py ou actions.py
+
+    def back(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        player = game.player
+        if len(player.history) == 0:
+            print("Vous ne pouvez pas encore revenir en arrière.\n")
+            return False
+        previous_room = player.history.pop()
+        player.current_room = previous_room
+        print(player.current_room.get_long_description())
+        print(player.get_history())
+        return True
+
