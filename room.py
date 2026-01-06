@@ -8,7 +8,7 @@ class Room:
         self.description = description
         self.exits = {}
         self.items = {}
-
+        self.characters = {}
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -45,4 +45,12 @@ class Room:
         for item in self.items.values():
             result += f"  - {item}\n"
         return result
-        
+
+    # méthode pour afficher les PNJ présents
+    def get_characters_description(self):
+        if not self.characters:
+            return ""
+        result = "Personnages présents :\n"
+        for char in self.characters.values():
+            result += f"  - {char}\n"
+        return result

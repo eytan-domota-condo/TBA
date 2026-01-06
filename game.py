@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from character import Character
 
 class Game:
 
@@ -82,6 +83,18 @@ class Game:
         place.add_item(sword)
         fort.add_item(key)
         malendure.add_item(buste)
+
+
+
+        # exemple PNJ
+        gandalf = Character("Gandalf", "un magicien blanc", place, ["Je suis Gandalf.", "Abracadabra !"])
+        place.characters[gandalf.name.lower()] = gandalf  # nom en minuscules pour la commande
+
+        pirate = Character("Pirate", "un pirate avec un cache-œil", fort, ["Yo-ho-ho !", "À l'abordage !"])
+        fort.characters[pirate.name.lower()] = pirate
+
+        talk = Command("talk", " <pnj> : parler à un personnage non joueur", Actions.talk, 1)
+        self.commands["talk"] = talk
 
     # Play the game
     def play(self):

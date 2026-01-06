@@ -122,7 +122,7 @@ class Actions:
         room = game.player.current_room
         print(room.get_long_description())
         print(room.get_items_description())
-
+        print(room.get_characters_description())
 
     
     def take(game, words, number_of_parameters):
@@ -140,6 +140,18 @@ class Actions:
         print(game.player.drop(words[1]))
 
 
-
     def check(game, words, number_of_parameters):
         print(game.player.get_inventory_description())
+
+
+    def talk(game, words, number_of_parameters):
+        if len(words) < 2:
+            print("Parler à qui ?")
+            return
+        pnj_name = words[1].lower()
+        room = game.player.current_room
+        if pnj_name not in room.characters:
+            print(f"Il n'y a pas de personnage '{words[1]}' ici.")
+            return
+        pnj = room.characters[pnj_name]
+        print(pnj.get_msg())
