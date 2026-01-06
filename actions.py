@@ -16,7 +16,7 @@ MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
-
+from item import Item
 class Actions:
 
     def go(game, list_of_words, number_of_parameters):
@@ -115,3 +115,31 @@ class Actions:
         print(player.get_history())
         return True
 
+
+
+    
+    def look(game, words, number_of_parameters):
+        room = game.player.current_room
+        print(room.get_long_description())
+        print(room.get_items_description())
+
+
+    
+    def take(game, words, number_of_parameters):
+        if len(words) < 2:
+            print("Prendre quoi ?")
+            return
+        print(game.player.take(words[1]))
+
+
+
+    def drop(game, words, number_of_parameters):
+        if len(words) < 2:
+            print("Déposer quoi ?")
+            return
+        print(game.player.drop(words[1]))
+
+
+
+    def check(game, words, number_of_parameters):
+        print(game.player.get_inventory_description())

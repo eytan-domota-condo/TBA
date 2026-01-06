@@ -1,10 +1,10 @@
 # item.py
 
 class Item:
-    def __init__(self, name: str, description: str, weight: int | float):
+    def __init__(self, name, description, weight):
         self.name = name
         self.description = description
         self.weight = weight
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.name} : {self.description} ({self.weight} kg)"

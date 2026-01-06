@@ -29,6 +29,15 @@ class Game:
         self.commands["go"] = go
         back = Command("back", " : retour à la salle précédente", Actions.back,0)
         self.commands["back"]=back
+        look = Command("look", " : regarder autour de soi", Actions.look, 0)
+        self.commands["look"] = look
+        take = Command("take", " <objet> : prendre un objet", Actions.take, 1)
+        self.commands["take"] = take
+        drop = Command("drop", " <objet> : déposer un objet", Actions.drop, 1)
+        self.commands["drop"] = drop
+        check = Command("check", " : vérifier l'inventaire", Actions.check, 0)
+        self.commands["check"] = check
+
         # Setup rooms
 
         soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")
@@ -63,6 +72,16 @@ class Game:
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = place
+
+        from item import Item
+
+        sword = Item("sword", "une épée tranchante", 2)
+        key = Item("key", "une petite clé rouillée", 0.1)
+        buste = Item("buste","un buste du Commandant Cousteau",5)
+
+        place.add_item(sword)
+        fort.add_item(key)
+        malendure.add_item(buste)
 
     # Play the game
     def play(self):
@@ -101,7 +120,6 @@ class Game:
         #
         print(self.player.current_room.get_long_description())
     
-
 def main():
     # Create a game object and play the game
     Game().play()

@@ -7,6 +7,8 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
+        self.items = {}
+
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -29,3 +31,18 @@ class Room:
     # Return a long description of this room including exits.
     def get_long_description(self):
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+
+    def add_item(self, item):
+        self.items[item.name] = item
+
+    def remove_item(self, item_name):
+        return self.items.pop(item_name, None)
+
+    def get_items_description(self):
+        if not self.items:
+            return "Il n'y a aucun objet ici."
+        result = "Objets visibles :\n"
+        for item in self.items.values():
+            result += f"  - {item}\n"
+        return result
+        
