@@ -38,7 +38,23 @@ class Game:
         self.commands["drop"] = drop
         check = Command("check", " : vérifier l'inventaire", Actions.check, 0)
         self.commands["check"] = check
-
+         self.commands["quests"] = Command("quests"
+                                          , " : afficher la liste des quêtes"
+                                          , Actions.quests
+                                          , 0)
+        self.commands["quest"] = Command("quest"
+                                         , " <titre> : afficher les détails d'une quête"
+                                         , Actions.quest
+                                         , 1)
+        self.commands["activate"] = Command("activate"
+                                            , " <titre> : activer une quête"
+                                            , Actions.activate
+                                            , 1)
+        self.commands["rewards"] = Command("rewards"
+                                           , " : afficher vos récompenses"
+                                           , Actions.rewards
+                                           , 0)
+        
         # Setup rooms
 
         soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")
