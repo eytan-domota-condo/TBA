@@ -1,4 +1,7 @@
 # Define the Player class.
+
+from quest import QuestManager
+
 class Player():
 
     def __init__(self, name, max_weight=5.0):
