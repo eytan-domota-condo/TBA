@@ -38,7 +38,7 @@ class Game:
         self.commands["drop"] = drop
         check = Command("check", " : vérifier l'inventaire", Actions.check, 0)
         self.commands["check"] = check
-         self.commands["quests"] = Command("quests"
+        self.commands["quests"] = Command("quests"
                                           , " : afficher la liste des quêtes"
                                           , Actions.quests
                                           , 0)
