@@ -19,6 +19,7 @@ MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 from item import Item
 class Actions:
 
+    @staticmethod
     def go(game, list_of_words, number_of_parameters):
         """
         Move the player in the direction specified by the parameter.
@@ -63,6 +64,7 @@ class Actions:
         player.move(direction)
         return True
 
+    @staticmethod
     def quit(game, list_of_words, number_of_parameters):
         """
         Quit the game.
@@ -81,7 +83,62 @@ class Actions:
         game.finished = True
         return True
 
+    @staticmethod
     def help(game, list_of_words, number_of_parameters):
+        """
+        Print the list of available commands.
+        
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            bool: True if the command was executed successfully, False otherwise.
+
+        Examples:
+
+        >>> from game import Game
+        >>> game = Game()
+        >>> game.setup("TestPlayer")
+        >>> Actions.help(game, ["help"], 0) # doctest: +NORMALIZE_WHITESPACE
+        <BLANKLINE>
+        Voici les commandes disponibles:
+            - help : afficher cette aide
+            - quit : quitter le jeu
+            - go <direction> : se déplacer dans une direction cardinale (N, E, S, O)
+            - quests : afficher la liste des quêtes
+            - quest <titre> : afficher les détails d'une quête
+            - activate <titre> : activer une quête
+            - rewards : afficher vos récompenses
+        <BLANKLINE>
+        True
+        >>> Actions.help(game, ["help", "N"], 0)
+        <BLANKLINE>
+        La commande 'help' ne prend pas de paramètre.
+        <BLANKLINE>
+        False
+        >>> Actions.help(game, ["help", "N", "E"], 0)
+        <BLANKLINE>
+        La commande 'help' ne prend pas de paramètre.
+        <BLANKLINE>
+        False
+        """
+
+        # If the number of parameters is incorrect, print an error message and return False.
+        n = len(list_of_words)
+        if n != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # Print the list of available commands.
+        print("\nVoici les commandes disponibles:")
+        for command in game.commands.values():
+            print("\t- " + str(command))
+        print()
+        return True
+
         """
         Print the list of available commands.
         """
@@ -100,6 +157,7 @@ class Actions:
         return True
 # dans game.py ou actions.py
 
+    @staticmethod
     def back(game, list_of_words, number_of_parameters):
         if len(list_of_words) != number_of_parameters + 1:
             command_word = list_of_words[0]
@@ -117,14 +175,14 @@ class Actions:
 
 
 
-    
+    @staticmethod
     def look(game, words, number_of_parameters):
         room = game.player.current_room
         print(room.get_long_description())
         print(room.get_items_description())
         print(room.get_characters_description())
 
-    
+    @staticmethod
     def take(game, words, number_of_parameters):
         if len(words) < 2:
             print("Prendre quoi ?")
@@ -132,18 +190,18 @@ class Actions:
         print(game.player.take(words[1]))
 
 
-
+    @staticmethod
     def drop(game, words, number_of_parameters):
         if len(words) < 2:
             print("Déposer quoi ?")
             return
         print(game.player.drop(words[1]))
 
-
+    @staticmethod
     def check(game, words, number_of_parameters):
         print(game.player.get_inventory_description())
 
-
+    @staticmethod
     def talk(game, words, number_of_parameters):
         if len(words) < 2:
             print("Parler à qui ?")

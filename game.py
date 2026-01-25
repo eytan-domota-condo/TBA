@@ -20,9 +20,15 @@ class Game:
     
     # Setup the game
     def setup(self):
+        """Initialize the game with rooms, commands, and quests."""
+        self._setup_commands()
+        self._setup_rooms()
+        self._setup_player()
+        self._setup_quests()
 
-        # Setup commands
 
+    # Setup commands
+    def _setup_commands(self):
         help = Command("help", " : afficher cette aide", Actions.help, 0)
         self.commands["help"] = help
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
@@ -56,8 +62,8 @@ class Game:
                                            , Actions.rewards
                                            , 0)
         
-        # Setup rooms
-
+    # Setup rooms
+    def _setup_rooms(self):
         soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")
         self.rooms.append(soufrière)
         chutes = Room("Les Chutes du Carbet", "près de grandes cascades au cœur de la jungle.")
@@ -86,29 +92,40 @@ class Game:
         place.exits = {"N" : None, "E" : caravelle, "S" : None, "O" : chutes, "U": None, "D": None}
         fort.exits = {"N" : parc, "E" : None, "S" : None, "O" : None, "U": None, "D": None}
 
-        # Setup player and starting room
-
-        self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = place
-
+       
         from item import Item
 
-        sword = Item("sword", "une épée tranchante", 2)
-        key = Item("key", "une petite clé rouillée", 0.1)
+        sword = Item("sword", "une épée égarée", 2)
+        rocheloge = Item("rocheloge", "une petite pierre qui informe du temps qui passe", 0.1)
         buste = Item("buste","un buste du Commandant Cousteau",5)
+        croix = Item("croix",10)
+        bouteille vide = Item("bouteille vide","Tous les chemins mènent au rhum !",0.5)
+        pierre feu = Item("pierre feu","Brulante comme les flammes, elle brille comme une étoile",1)
 
-        place.add_item(sword)
-        fort.add_item(key)
+        fort.add_item(sword)
+        parc.add_item(rocheloge)
         malendure.add_item(buste)
+        pointe.add_item(croix)
+        caravelle.add_item(bouteille vide)
+        soufrière.add_item(pierre feu)
+        
+        Ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : A la pointe tu dois aller et une épreuve de force tu vas réaliser !"])
+        place.characters[ary.name.lower()] = ary  # nom en minuscules pour la commande
 
+        Fantome de Napoléon = Character("Fantome de Napoléon", "un fantome très énigmatique", fort, ["N'ayez crainte ! Je suis le propriétaire", "Trouvez mon épée égarée et recevez votre récompense"])
+        fort.characters[fantome de napoléon.name.lower()] = fantome de napoléon
 
+        Général  = Character("Général", "le général a une mission pour vous !", malendure, ["Je suis le général Cousteau !", "Ramène moi mon buste soldat mais prend garde aux poissons !"])
+        malendure.characters[général.name.lower()] = général 
 
-        # exemple PNJ
-        gandalf = Character("Gandalf", "un magicien blanc", place, ["Je suis Gandalf.", "Abracadabra !"])
-        place.characters[gandalf.name.lower()] = gandalf  # nom en minuscules pour la commande
+        Volcanologue  = Character("Volcanologue", "un expert au sommet du volcan", soufrière, ["Je suis le Volcanologue de cette vielle dame !", "Je cherche une pierre pas comme les autres. Aide moi à la retrouver je t'en prie !!"])
+        soufrière.characters[volcanologue.name.lower()] = volcanologue
 
-        pirate = Character("Pirate", "un pirate avec un cache-œil", fort, ["Yo-ho-ho !", "À l'abordage !"])
-        fort.characters[pirate.name.lower()] = pirate
+        Archéologue  = Character("Archéologue", "un explorateur des vestiges du passé", parc, ["Je suis l'archéologue responsable de cette fouille !", "Ramenez moi la roche qui indique le temps passé, présent, futur !"])
+        parc.characters[archéologue.name.lower()] = archéologue
+
+        Bobby le barman = Character("Bobby le barman", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
+        caravelle.characters[bobby le barman.name.lower()] = bobby le barman
 
         talk = Command("talk", " <pnj> : parler à un personnage non joueur", Actions.talk, 1)
         self.commands["talk"] = talk
@@ -119,7 +136,7 @@ class Game:
             player_name = input("\nEntrez votre nom: ")
 
         self.player = Player(player_name)
-        self.player.current_room = self.rooms[4]  # swamp
+        self.player.current_room = self.rooms[6]  
 
 
     def _setup_quests(self):
@@ -127,11 +144,11 @@ class Game:
         exploration_quest = Quest(
             title="Grand Explorateur",
             description="Explorez tous les lieux de ce monde mystérieux.",
-            objectives=["Visiter Forest"
-                        , "Visiter Tower"
-                        , "Visiter Cave"
-                        , "Visiter Cottage"
-                        , "Visiter Castle"],
+            objectives=["Visiter malendure"
+                        , "Visiter fort"
+                        , "Visiter chutes"
+                        , "Visiter caravelle"
+                        , "Visiter pointe"],
             reward="Titre de Grand Explorateur"
         )
 
@@ -145,9 +162,9 @@ class Game:
         discovery_quest = Quest(
             title="Découvreur de Secrets",
             description="Découvrez les trois lieux les plus mystérieux.",
-            objectives=["Visiter Cave"
-                        , "Visiter Tower"
-                        , "Visiter Castle"],
+            objectives=["Visiter soufrière"
+                        , "Visiter fort"
+                        , "Visiter place"],
             reward="Clé dorée"
         )
 
@@ -169,7 +186,7 @@ class Game:
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
 
-        #Ignorer la commande vide
+        #Ignorer commande vide
         if command_string.strip()=="":
             return
 

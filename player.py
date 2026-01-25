@@ -12,6 +12,10 @@ class Player():
         self.history = []
         self.inventory = {}
         self.max_weight = max_weight
+        self.move_count = 0
+        self.quest_manager = QuestManager(self)
+        self.rewards = []  # List to store earned rewards
+      # Define the move method.
 
     def move(self, direction):
         direction = direction.upper()

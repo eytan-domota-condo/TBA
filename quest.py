@@ -257,14 +257,14 @@ class Quest:
             
         Examples:
         
-        >>> quest = Quest("Explore", "Explore the castle", ["Visiter Castle"])
-        >>> quest.check_room_objective("Castle")
-        ✅ Objectif accompli: Visiter Castle
+        >>> quest = Quest("Explore", "Explore the castle", ["Visiter malendure"])
+        >>> quest.check_room_objective("malendure")
+        ✅ Objectif accompli: Visiter malendure
         <BLANKLINE>
         🏆 Quête terminée: Explore
         <BLANKLINE>
         True
-        >>> quest.check_room_objective("Tower")
+        >>> quest.check_room_objective("chutes")
         False
         """
         room_objectives = [
