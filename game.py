@@ -98,7 +98,7 @@ class Game:
         sword = Item("sword", "une épée égarée", 2)
         rocheloge = Item("rocheloge", "une petite pierre qui informe du temps qui passe", 0.1)
         buste = Item("buste","un buste du Commandant Cousteau",5)
-        croix = Item("croix",10)
+        croix = Item("croix","une croix face à la mer",10)
         bouteillevide = Item("bouteillevide","Tous les chemins mènent au rhum !",0.5)
         pierrefeu = Item("pierrefeu","Brulante comme les flammes, elle brille comme une étoile",1)
 
