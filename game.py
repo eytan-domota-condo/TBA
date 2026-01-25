@@ -112,8 +112,8 @@ class Game:
         Ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : A la pointe tu dois aller et une épreuve de force tu vas réaliser !"])
         place.characters[ary.name.lower()] = ary  # nom en minuscules pour la commande
 
-        Fantome de Napoléon = Character("Fantome de Napoléon", "un fantome très énigmatique", fort, ["N'ayez crainte ! Je suis le propriétaire", "Trouvez mon épée égarée et recevez votre récompense"])
-        fort.characters[fantome de napoléon.name.lower()] = fantome de napoléon
+        Fantome = Character("Fantome", "un fantome très énigmatique", fort, ["N'ayez crainte ! Je suis le propriétaire", "Trouvez mon épée égarée et recevez votre récompense"])
+        fort.characters[fantome.name.lower()] = fantome
 
         Général  = Character("Général", "le général a une mission pour vous !", malendure, ["Je suis le général Cousteau !", "Ramène moi mon buste soldat mais prend garde aux poissons !"])
         malendure.characters[général.name.lower()] = général 
@@ -124,8 +124,8 @@ class Game:
         Archéologue  = Character("Archéologue", "un explorateur des vestiges du passé", parc, ["Je suis l'archéologue responsable de cette fouille !", "Ramenez moi la roche qui indique le temps passé, présent, futur !"])
         parc.characters[archéologue.name.lower()] = archéologue
 
-        Bobby le barman = Character("Bobby le barman", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
-        caravelle.characters[bobby le barman.name.lower()] = bobby le barman
+        Bobby = Character("Bobby", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
+        caravelle.characters[bobby.name.lower()] = bobby
 
         talk = Command("talk", " <pnj> : parler à un personnage non joueur", Actions.talk, 1)
         self.commands["talk"] = talk
