@@ -99,15 +99,15 @@ class Game:
         rocheloge = Item("rocheloge", "une petite pierre qui informe du temps qui passe", 0.1)
         buste = Item("buste","un buste du Commandant Cousteau",5)
         croix = Item("croix",10)
-        bouteille vide = Item("bouteille vide","Tous les chemins mènent au rhum !",0.5)
-        pierre feu = Item("pierre feu","Brulante comme les flammes, elle brille comme une étoile",1)
+        bouteillevide = Item("bouteillevide","Tous les chemins mènent au rhum !",0.5)
+        pierrefeu = Item("pierrefeu","Brulante comme les flammes, elle brille comme une étoile",1)
 
         fort.add_item(sword)
         parc.add_item(rocheloge)
         malendure.add_item(buste)
         pointe.add_item(croix)
-        caravelle.add_item(bouteille vide)
-        soufrière.add_item(pierre feu)
+        caravelle.add_item(bouteillevide)
+        soufrière.add_item(pierrefeu)
         
         Ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : A la pointe tu dois aller et une épreuve de force tu vas réaliser !"])
         place.characters[ary.name.lower()] = ary  # nom en minuscules pour la commande
