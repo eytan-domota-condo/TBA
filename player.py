@@ -50,6 +50,13 @@ class Player():
             "Se déplacer",
             self.move_count
         )
+        self.quest_manager.check_activate_final_quest()
+
+        self.quest_manager.check_action_objectives(
+            "visiter",
+            self.current_room.key.lower()
+        )
+        self.quest_manager.check_activate_final_quest()
 
         # Historique
         print(self.get_history())
@@ -77,13 +84,14 @@ class Player():
 
         # Vérification du poids
         if self.current_weight() + item.weight > self.max_weight:
-            # Remettre l’objet dans la salle
             self.current_room.add_item(item)
             return f"Vous ne pouvez pas prendre '{item_name}' : trop lourd !"
 
-        # Sinon, prendre l’objet
+        # Prendre l’objet
         self.inventory[item_name] = item
         return f"Vous avez pris l'objet '{item_name}'."
+
+
 
     def drop(self, item_name):
         item = self.inventory.pop(item_name, None)

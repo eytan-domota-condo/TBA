@@ -187,10 +187,17 @@ class Actions:
         if len(words) < 2:
             print("Prendre quoi ?")
             return
-        print(game.player.take(words[1]))
 
-        if game.player.quest_manager:
-            game.player.quest_manager.check_action_objectives("prendre", item_name.lower())
+        item_name = words[1].lower()
+
+        print(game.player.take(item_name))
+
+        # informer les quêtes
+        game.player.quest_manager.check_action_objectives(
+            "prendre",
+            item_name
+        )
+        game.player.quest_manager.check_activate_final_quest()
 
 
     @staticmethod
@@ -218,7 +225,8 @@ class Actions:
         print(pnj.get_msg())
 
         if game.player.quest_manager:
-            game.player.quest_manager.check_action_objectives("parler", pnj_name)
+            game.player.quest_manager.check_action_objectives("parler avec", pnj_name)
+            game.player.quest_manager.check_activate_final_quest()
 
     @staticmethod
     def quests(game, list_of_words, number_of_parameters):

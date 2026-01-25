@@ -737,3 +737,16 @@ class QuestManager:
             print(quest.get_details(current_counts))
         else:
             print(f"\nQuête '{quest_title}' non trouvée.\n")
+
+    def check_activate_final_quest(self):
+        # Vérifie si toutes les quêtes sauf la finale sont terminées
+        for quest in self.quests:
+            if quest.title != "Maître de l'île" and not quest.is_completed:
+                return  # pas encore fini, on sort
+
+        # Activer automatiquement la quête finale
+        final_quest = next((q for q in self.quests if q.title == "Maître de l'île"), None)
+        if final_quest and not final_quest.active:
+            final_quest.active = True
+            print("\n🎉 Toutes les quêtes sont terminées ! La quête finale 'Maître de l'île' est maintenant disponible.")
+            print("Retournez à la place et parlez à Ary pour votre récompense finale.\n")

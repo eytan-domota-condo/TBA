@@ -94,9 +94,6 @@ class Game:
 
         
 
-        
-
-       
         from item import Item
 
         sword = Item("sword", "une épée égarée", 2)
@@ -131,54 +128,7 @@ class Game:
         bobby = Character("Bobby", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
         caravelle.characters[bobby.name.lower()] = bobby
 
-        malendure = Room(
-            "La plage de Malendure",
-            "dans une zone côtière avec fond marin protégé et pleine de surprises.",
-            "malendure"
-        )
 
-        caravelle = Room(
-            "La plage de la Caravelle",
-            "dans une grande plage paradisiaque de carte postale avec cocotiers.",
-            "caravelle"
-        )
-
-        
-        chutes = Room(
-            "Les chutes du Carbet",
-            "près de grandes cascades au cœur de la foret tropicale.",
-            "chutes"
-        )
-
-        pointe = Room(
-            "La pointe des châteaux",
-            "dans une pointe rocheuse battue par les vagues, avec une grande croix et une vue sur l’océan.",
-            "pointe"
-        )
-
-        fort = Room(
-            "Le fort Napoléon",
-            "dans une forteresse sombre qui porte les marques du passé.",
-            "fort"
-        )
-
-        soufrière = Room(
-            "La Soufrière",
-            "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.",
-            "soufrière"
-        )
-
-        place = Room(
-            "La place de la victoire",
-            "dans une grande place centrale avec des maisons colorées et un grand marché aux épices.",
-            "place"
-        )
-
-        parc = Room(
-            "Le parc des roches gravées",
-            "site avec des roches gravées amérindiennes remplies d'énigmes.",
-            "parc"
-        )
 
         talk = Command("talk", " <pnj> : parler à un personnage non joueur", Actions.talk, 1)
         self.commands["talk"] = talk
@@ -197,13 +147,13 @@ class Game:
         exploration_quest = Quest(
             title="A la découverte de l'île",
             description="Explorez tous les lieux de cette île insolite.",
-            objectives=["Visiter malendure"
-                        , "Visiter fort"
-                        , "Visiter chutes"
-                        , "Visiter caravelle"
-                        , "Visiter pointe"
-                        , "Visiter parc"
-                        , "Visiter soufrière"],
+            objectives=["visiter malendure"
+                        , "visiter fort"
+                        , "visiter chutes"
+                        , "visiter caravelle"
+                        , "visiter pointe"
+                        , "visiter parc"
+                        , "visiter soufrière"],
             reward="Carte de l'île"
         )
 
@@ -216,19 +166,19 @@ class Game:
 
         pnj_quests = []
         all_pnjs = [
-            "Ary", "Fantome", "Bobby", "Volcanologue", "Archéologue","Général"
+            "ary", "fantome", "bobby", "volcanologue", "archéologue","général"
         ]
         objectives = [f"parler avec {pnj}" for pnj in all_pnjs]
 
         interaction_quest = Quest(
             title="Grand Orateur",
             description="Parlez avec tous les PNJ du jeu pour mieux connaître le royaume.",
-            objectives=["Parler avec Ary"
-                        ,"Parler avec Fantome"
-                        ,"Parler avec Bobby"
-                        ,"Parler avec Général"
-                        ,"Parler avec Volcanologue"
-                        ,"Parler avec Archéologue"],
+            objectives=["parler avec ary"
+                        ,"parler avec fantome"
+                        ,"parler avec bobby"
+                        ,"parler avec général"
+                        ,"parler avec volcanologue"
+                        ,"parler avec archéologue"],
             reward="Album photo"
         )
 
@@ -242,15 +192,27 @@ class Game:
             title="Collectionneur",
             description="Récupérez tous les objets du jeu.",
             objectives=[
-                "Prendre croix",
-                "Prendre sword",
-                "Prendre buste",
-                "Prendre pierrefeu",
-                "Prendre bouteillevide",
-                "Prendre rocheloge"
+                "prendre croix",
+                "prendre sword",
+                "prendre buste",
+                "prendre pierrefeu",
+                "prendre bouteillevide",
+                "prendre rocheloge"
             ],
             reward="Sac du Collectionneur"
         )
+
+        # Quête finale : Maître de l'île
+        final_quest = Quest(
+            title="Maître de l'île",
+            description="Toutes les quêtes sont terminées. Retournez à la place et parlez à Ary.",
+            objectives=["parler avec ary"],
+            reward="Félicitations vous avez gagné !!!"
+        )
+
+        # Ajouter la quête finale à la liste dès le départ, mais inactive
+        self.player.quest_manager.add_quest(final_quest)
+        final_quest.active = False
 
 
         # Add quests to player's quest manager
@@ -258,7 +220,7 @@ class Game:
         self.player.quest_manager.add_quest(travel_quest)
         self.player.quest_manager.add_quest(interaction_quest)
         self.player.quest_manager.add_quest(item_quest)
-
+        self.player.quest_manager.add_quest(final_quest)
 
     # Play the game
     def play(self):
