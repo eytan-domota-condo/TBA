@@ -109,22 +109,22 @@ class Game:
         caravelle.add_item(bouteillevide)
         soufrière.add_item(pierrefeu)
         
-        Ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : A la pointe tu dois aller et une épreuve de force tu vas réaliser !"])
+        ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : A la pointe tu dois aller et une épreuve de force tu vas réaliser !"])
         place.characters[ary.name.lower()] = ary  # nom en minuscules pour la commande
 
-        Fantome = Character("Fantome", "un fantome très énigmatique", fort, ["N'ayez crainte ! Je suis le propriétaire", "Trouvez mon épée égarée et recevez votre récompense"])
+        fantome = Character("Fantome", "un fantome très énigmatique", fort, ["N'ayez crainte ! Je suis le propriétaire", "Trouvez mon épée égarée et recevez votre récompense"])
         fort.characters[fantome.name.lower()] = fantome
 
-        Général  = Character("Général", "le général a une mission pour vous !", malendure, ["Je suis le général Cousteau !", "Ramène moi mon buste soldat mais prend garde aux poissons !"])
+        général  = Character("Général", "le général a une mission pour vous !", malendure, ["Je suis le général Cousteau !", "Ramène moi mon buste soldat mais prend garde aux poissons !"])
         malendure.characters[général.name.lower()] = général 
 
-        Volcanologue  = Character("Volcanologue", "un expert au sommet du volcan", soufrière, ["Je suis le Volcanologue de cette vielle dame !", "Je cherche une pierre pas comme les autres. Aide moi à la retrouver je t'en prie !!"])
+        volcanologue  = Character("Volcanologue", "un expert au sommet du volcan", soufrière, ["Je suis le Volcanologue de cette vielle dame !", "Je cherche une pierre pas comme les autres. Aide moi à la retrouver je t'en prie !!"])
         soufrière.characters[volcanologue.name.lower()] = volcanologue
 
-        Archéologue  = Character("Archéologue", "un explorateur des vestiges du passé", parc, ["Je suis l'archéologue responsable de cette fouille !", "Ramenez moi la roche qui indique le temps passé, présent, futur !"])
+        archéologue  = Character("Archéologue", "un explorateur des vestiges du passé", parc, ["Je suis l'archéologue responsable de cette fouille !", "Ramenez moi la roche qui indique le temps passé, présent, futur !"])
         parc.characters[archéologue.name.lower()] = archéologue
 
-        Bobby = Character("Bobby", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
+        bobby = Character("Bobby", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
         caravelle.characters[bobby.name.lower()] = bobby
 
         talk = Command("talk", " <pnj> : parler à un personnage non joueur", Actions.talk, 1)
