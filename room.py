@@ -3,9 +3,10 @@
 class Room:
 
     # Define the constructor. 
-    def __init__(self, name, description):
+    def __init__(self, name, description, key):
         self.name = name
         self.description = description
+        self.key = key
         self.exits = {}
         self.items = {}
         self.characters = {}

@@ -64,21 +64,21 @@ class Game:
         
     # Setup rooms
     def _setup_rooms(self):
-        soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.")
+        soufrière = Room("La Soufrière", "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.","soufrière")
         self.rooms.append(soufrière)
-        chutes = Room("Les Chutes du Carbet", "près de grandes cascades au cœur de la jungle.")
+        chutes = Room("Les Chutes du Carbet", "près de grandes cascades au cœur de la foret tropicale.","chutes")
         self.rooms.append(chutes)
-        parc = Room("Le parc des roches gravées", "site avec des roches gravées amérindiennes remplies d'énigmes.")
+        parc = Room("Le parc des roches gravées", "site avec des roches gravées amérindiennes remplies d'énigmes.","parc")
         self.rooms.append(parc)
-        malendure = Room("La plage de malendure", "dans une zone côtière avec fond marin protégé et pleine de surprises.")
+        malendure = Room("La plage de malendure", "dans une zone côtière avec fond marin protégé et pleine de surprises.","malendure")
         self.rooms.append(malendure)
-        pointe = Room("La Pointe des chatêau", "dans une pointe rocheuse battue par les vagues, avec une grande croix et une vue sur l’océan.")
+        pointe = Room("La Pointe des chatêau", "dans une pointe rocheuse battue par les vagues, avec une grande croix et une vue sur l’océan.","pointe")
         self.rooms.append(pointe)
-        caravelle = Room("Caravelle", "dans une grande plage paradisiaque de carte postale avec cocotiers.")
+        caravelle = Room("Caravelle", "dans une grande plage paradisiaque de carte postale avec cocotiers.","caravelle")
         self.rooms.append(caravelle)
-        place = Room("La place de la victoire", "dans une grande place centrale avec des maisons colorées et marchés.")
+        place = Room("La place de la victoire", "dans une grande place centrale avec des maisons colorées et un grand marché aux épices.","place")
         self.rooms.append(place)
-        fort = Room("Le fort Napoléon", "dans une forteresse sombre qui porte les marques du passé.")
+        fort = Room("Le fort Napoléon", "dans une forteresse sombre qui porte les marques du passé.","fort")
         self.rooms.append(fort)
 
         # Create exits for rooms
@@ -91,6 +91,10 @@ class Game:
         caravelle.exits = {"N" : None, "E" : pointe, "S" : None, "O" : place, "U": None, "D": None}
         place.exits = {"N" : None, "E" : caravelle, "S" : None, "O" : chutes, "U": None, "D": None}
         fort.exits = {"N" : parc, "E" : None, "S" : None, "O" : None, "U": None, "D": None}
+
+        
+
+        
 
        
         from item import Item
@@ -109,7 +113,7 @@ class Game:
         caravelle.add_item(bouteillevide)
         soufrière.add_item(pierrefeu)
         
-        ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : A la pointe tu dois aller et une épreuve de force tu vas réaliser !"])
+        ary  = Character("Ary", "un guide pas comme les autres", place, ["Je suis Ary, ton guide pour cette nouvelle aventure.", "Regarde les quêtes que tu dois réaliser","Reviens me parler une fois toutes les quêtes terminées. Petit conseil : Trouve un moyen de locomotion"])
         place.characters[ary.name.lower()] = ary  # nom en minuscules pour la commande
 
         fantome = Character("Fantome", "un fantome très énigmatique", fort, ["N'ayez crainte ! Je suis le propriétaire", "Trouvez mon épée égarée et recevez votre récompense"])
@@ -127,6 +131,55 @@ class Game:
         bobby = Character("Bobby", "un amoureux de la boisson", caravelle, ["Je suis le barman de cette plage. Bois ! Tu m'en diras des nouvelles", "Finissons cette bouteille mon ami !","Tu ne partiras pas de cette plage si la bouteille est pleine !"])
         caravelle.characters[bobby.name.lower()] = bobby
 
+        malendure = Room(
+            "La plage de Malendure",
+            "dans une zone côtière avec fond marin protégé et pleine de surprises.",
+            "malendure"
+        )
+
+        caravelle = Room(
+            "La plage de la Caravelle",
+            "dans une grande plage paradisiaque de carte postale avec cocotiers.",
+            "caravelle"
+        )
+
+        
+        chutes = Room(
+            "Les chutes du Carbet",
+            "près de grandes cascades au cœur de la foret tropicale.",
+            "chutes"
+        )
+
+        pointe = Room(
+            "La pointe des châteaux",
+            "dans une pointe rocheuse battue par les vagues, avec une grande croix et une vue sur l’océan.",
+            "pointe"
+        )
+
+        fort = Room(
+            "Le fort Napoléon",
+            "dans une forteresse sombre qui porte les marques du passé.",
+            "fort"
+        )
+
+        soufrière = Room(
+            "La Soufrière",
+            "aux pieds d'un volcan actif entouré de forêt tropicale, parfait pour une zone de montagne avec brouillard.",
+            "soufrière"
+        )
+
+        place = Room(
+            "La place de la victoire",
+            "dans une grande place centrale avec des maisons colorées et un grand marché aux épices.",
+            "place"
+        )
+
+        parc = Room(
+            "Le parc des roches gravées",
+            "site avec des roches gravées amérindiennes remplies d'énigmes.",
+            "parc"
+        )
+
         talk = Command("talk", " <pnj> : parler à un personnage non joueur", Actions.talk, 1)
         self.commands["talk"] = talk
 
@@ -142,37 +195,71 @@ class Game:
     def _setup_quests(self):
         """Initialize all quests."""
         exploration_quest = Quest(
-            title="Grand Explorateur",
-            description="Explorez tous les lieux de ce monde mystérieux.",
+            title="A la découverte de l'île",
+            description="Explorez tous les lieux de cette île insolite.",
             objectives=["Visiter malendure"
                         , "Visiter fort"
                         , "Visiter chutes"
                         , "Visiter caravelle"
-                        , "Visiter pointe"],
-            reward="Titre de Grand Explorateur"
+                        , "Visiter pointe"
+                        , "Visiter parc"
+                        , "Visiter soufrière"],
+            reward="Carte de l'île"
         )
 
         travel_quest = Quest(
-            title="Grand Voyageur",
-            description="Déplacez-vous 10 fois entre les lieux.",
-            objectives=["Se déplacer 10 fois"],
-            reward="Bottes de voyageur"
+            title="La bougeotte",
+            description="Déplacez-vous 3 fois entre les lieux.",
+            objectives=["Se déplacer 3 fois"],
+            reward="T-max"
         )
 
-        discovery_quest = Quest(
-            title="Découvreur de Secrets",
-            description="Découvrez les trois lieux les plus mystérieux.",
-            objectives=["Visiter soufrière"
-                        , "Visiter fort"
-                        , "Visiter place"],
-            reward="Clé dorée"
+        pnj_quests = []
+        all_pnjs = [
+            "Ary", "Fantome", "Bobby", "Volcanologue", "Archéologue","Général"
+        ]
+        objectives = [f"parler avec {pnj}" for pnj in all_pnjs]
+
+        interaction_quest = Quest(
+            title="Grand Orateur",
+            description="Parlez avec tous les PNJ du jeu pour mieux connaître le royaume.",
+            objectives=["Parler avec Ary"
+                        ,"Parler avec Fantome"
+                        ,"Parler avec Bobby"
+                        ,"Parler avec Général"
+                        ,"Parler avec Volcanologue"
+                        ,"Parler avec Archéologue"],
+            reward="Album photo"
         )
+
+        all_items = [
+            "sword", "buste", "bouteillevide", "pierrefeu", "rocheloge", "croix"
+        ]
+        
+        objectives = [f"Prendre {item_name}" for item_name in all_items]
+        item_quest = Quest("Collectionneur", "Récupérez tous les objets.", objectives, "Sac du Collectionneur")
+        item_quest = Quest(
+            title="Collectionneur",
+            description="Récupérez tous les objets du jeu.",
+            objectives=[
+                "Prendre croix",
+                "Prendre sword",
+                "Prendre buste",
+                "Prendre pierrefeu",
+                "Prendre bouteillevide",
+                "Prendre rocheloge"
+            ],
+            reward="Sac du Collectionneur"
+        )
+
 
         # Add quests to player's quest manager
         self.player.quest_manager.add_quest(exploration_quest)
         self.player.quest_manager.add_quest(travel_quest)
-        self.player.quest_manager.add_quest(discovery_quest)
-    
+        self.player.quest_manager.add_quest(interaction_quest)
+        self.player.quest_manager.add_quest(item_quest)
+
+
     # Play the game
     def play(self):
         self.setup()

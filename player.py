@@ -1,6 +1,7 @@
 # Define the Player class.
 
 from quest import QuestManager
+from item import Item
 
 class Player():
 
@@ -25,14 +26,36 @@ class Player():
             print("\nAucune porte dans cette direction !\n")
             return False
 
-        # Empiler la salle actuelle dans l'historique avant de bouger
+        # Sauvegarde de l'historique
         self.history.append(self.current_room)
 
+        # Déplacement
         self.current_room = next_room
         print(self.current_room.get_long_description())
-        # Historique après chaque déplacement
+
+        # Compteur de déplacements
+        self.move_count += 1
+
+        # =====================
+        # 🎯 GESTION DES QUÊTES
+        # =====================
+
+        # Objectifs de type "Visiter ..."
+        self.quest_manager.check_room_objectives(
+            self.current_room.name.lower()
+        )
+
+        # Objectifs de type "Se déplacer X fois"
+        self.quest_manager.check_counter_objectives(
+            "Se déplacer",
+            self.move_count
+        )
+
+        # Historique
         print(self.get_history())
+
         return True
+
 
     def get_history(self):
         """

@@ -189,6 +189,9 @@ class Actions:
             return
         print(game.player.take(words[1]))
 
+        if game.player.quest_manager:
+            game.player.quest_manager.check_action_objectives("prendre", item_name.lower())
+
 
     @staticmethod
     def drop(game, words, number_of_parameters):
@@ -213,6 +216,9 @@ class Actions:
             return
         pnj = room.characters[pnj_name]
         print(pnj.get_msg())
+
+        if game.player.quest_manager:
+            game.player.quest_manager.check_action_objectives("parler", pnj_name)
 
     @staticmethod
     def quests(game, list_of_words, number_of_parameters):
