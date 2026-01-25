@@ -4,7 +4,7 @@ from quest import QuestManager
 
 class Player():
 
-    def __init__(self, name, max_weight=5.0):
+    def __init__(self, name, max_weight=10.0):
         self.name = name
         self.current_room = None
         self.valid_directions = ("N", "E", "S", "O", "U", "D")
